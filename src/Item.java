@@ -3,10 +3,12 @@ public class Item {
     private double cost;
     private int count;
 
-    public Item(String input) throws NumberFormatException{
-        this.name = input.split(" ")[0];
-        this.cost = Double.parseDouble(input.split(" ")[1]);
-        this.count = Integer.parseInt(input.split(" ")[2]);
+    public Item(String input) {
+        //много лишних объектов и операций
+        String[] parts = input.split(" ");
+        this.name = parts[0];
+        this.cost = Double.parseDouble(parts[1]);
+        this.count = Integer.parseInt(parts[2]);
     }
 
     public String getName() {

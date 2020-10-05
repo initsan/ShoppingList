@@ -3,14 +3,18 @@ public class Main {
         ShoppingList list = new ShoppingList();
 
         for (int i = 0; i < 5; i++) {
-            String input = new InputString().inputData();
-            if (input.equals("q")) break;
-
             System.out.println("Введите покупку, ее цену и количество через пробел");
+
+            //плохо. создавались каждый раз новые объекты. НЕобходимости в этом нет. Перевел в статику.
+            String input = InputString.inputData();
+            if ("q".equals(input)) {
+                break;
+            }
+
             try {
                 Item currentItem = new Item(input);
                 if (list.contains(currentItem.getName())) {
-                    list.addCountElememt(currentItem.getName(), currentItem);
+                    list.addCountElement(currentItem.getName(), currentItem);
                 } else {
                     list.addItem(currentItem);
                 }
@@ -20,10 +24,11 @@ public class Main {
 
         }
 
-        PrinterShoppingList printer = new PrinterShoppingList();
-        printer.printList(list);
-        printer.printAllCost(list);
-        printer.top(list, 3);
+        //если не передавать тут параметр в конструктор - то нет смысла создавать объект. Тут могди бы справиться статические методы.
+        PrinterShoppingList printer = new PrinterShoppingList(list);
+        printer.printList();
+        printer.printAllCost();
+        printer.top(3);
 
     }
 }
